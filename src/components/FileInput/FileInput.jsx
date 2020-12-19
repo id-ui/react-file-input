@@ -31,8 +31,7 @@ function FileInput({
               (file) => toMB(file.size) > maxFileSize
             )
           ) {
-            onError(TooLargeFileError());
-            return;
+            throw new TooLargeFileError();
           }
 
           const result = await onUpload(multiple ? files : files[0]);

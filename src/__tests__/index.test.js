@@ -157,7 +157,7 @@ describe('FileInput', () => {
         onUpload={handleUpload}
         onChange={handleChange}
         onError={handleError}
-        maxFileSize={0.1}
+        maxFileSize={0.01}
       />
     );
     user.upload(
