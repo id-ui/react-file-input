@@ -8,22 +8,6 @@ export default {
   title: 'FileInput',
   component: FileInput,
   argTypes: {
-    multiple: {
-      control: 'boolean',
-      description: 'whether you want fileInput to accept multiple files or not',
-      defaultValue: false,
-      table: {
-        defaultValue: { summary: false },
-      },
-    },
-    accepts: {
-      control: 'string',
-      description: 'acceptable types f files',
-    },
-    name: {
-      control: 'string',
-      description: 'input name',
-    },
     onStartUploading: {
       disable: true,
       action: 'onStartUploading',
@@ -50,6 +34,27 @@ export default {
       disable: true,
       description:
         'if children is function then it called with { fileInput, dragContainerProps }, you should render fileInput inside drag container and provide drag container with dragContainerProps. There is "isDragging" prop inside dragContainerProps, so you can use it for styling.',
+    },
+    maxFileSize: {
+      control: 'number',
+      description:
+        'maximum size of file (MB) for uploading (if actual size of file more then onError fired with Error { message: "Too large file" } )',
+    },
+    accepts: {
+      control: 'string',
+      description: 'acceptable types of files',
+    },
+    multiple: {
+      control: 'boolean',
+      description: 'whether you want fileInput to accept multiple files or not',
+      defaultValue: false,
+      table: {
+        defaultValue: { summary: false },
+      },
+    },
+    name: {
+      control: 'string',
+      description: 'input name',
     },
   },
   decorators: [withPropsTable],

@@ -2,6 +2,9 @@ import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from './styled';
 import { useDrag } from './hooks';
+import TooLargeFileError from './errors/TooLargeFileError';
+
+const toMB = (size) => size / 1024 ** 2;
 
 function FileInput({
   onStartUploading,
@@ -9,6 +12,7 @@ function FileInput({
   onError,
   multiple,
   onUpload,
+  maxFileSize,
   ...props
 }) {
   let inputRef = useRef();
@@ -21,6 +25,16 @@ function FileInput({
 
       try {
         if (onUpload) {
+          if (
+            maxFileSize &&
+            (multiple ? files : [files[0]]).some(
+              (file) => toMB(file.size) > maxFileSize
+            )
+          ) {
+            onError(TooLargeFileError());
+            return;
+          }
+
           const result = await onUpload(multiple ? files : files[0]);
           if (result) {
             onChange(result);
@@ -39,7 +53,7 @@ function FileInput({
 
       inputRef.current.value = null;
     },
-    [multiple, onStartUploading, onChange, onUpload, onError]
+    [multiple, onStartUploading, onChange, onUpload, onError, maxFileSize]
   );
 
   return (
@@ -61,6 +75,7 @@ FileInput.prpTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   accepts: PropTypes.string,
+  maxFileSize: PropTypes.number,
 };
 
 FileInput.defaultProps = {

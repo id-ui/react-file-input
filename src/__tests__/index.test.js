@@ -145,6 +145,33 @@ describe('FileInput', () => {
     });
   });
 
+  it('should throw "Too Large File" error', async () => {
+    const handleChange = jest.fn();
+    const handleError = jest.fn();
+    const handleUpload = jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('file.jpeg'));
+    const { getByTestId } = render(
+      <FileInput
+        data-testid="input"
+        onUpload={handleUpload}
+        onChange={handleChange}
+        onError={handleError}
+        maxFileSize={0.1}
+      />
+    );
+    user.upload(
+      getByTestId('input'),
+      new File(new Array(10000).fill('(⌐□_□)'), 'file.jpeg', {
+        type: 'image/jpeg',
+      })
+    );
+    await waitFor(() => {
+      expect(handleChange).toHaveBeenCalledTimes(0);
+      expect(handleError).toHaveBeenCalledTimes(1);
+    });
+  });
+
   it('drag and drop', async () => {
     const handleChange = jest.fn();
     const { getByTestId, queryByText, getByText } = render(

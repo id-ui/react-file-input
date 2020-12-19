@@ -70,6 +70,7 @@ function Example() {
             onStartUploading={() => setUploading(true)}
             onUpload={upload}
             onChange={handleChange}
+            maxFileSize={10}
         />
         {src ? <img alt="" src={src}/> : <span>Drop file here or click to upload</span>}
     </UploadArea>
