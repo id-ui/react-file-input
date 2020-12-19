@@ -15,9 +15,6 @@ npm install --save @idui/react-file-input
 yarn add @idui/react-file-input
 ```
 
-### Advantages
-- ...
-
 
 ### See props in [Docs](https://id-ui.github.io/react-file-input/?path=/docs/file-input--playground)
 
