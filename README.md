@@ -1,6 +1,6 @@
 # FileInput React Component
 
-[![NPM](https://img.shields.io/npm/v/@idui/react-file-input/.svg)](https://www.npmjs.com/package/@idui/react-file-input/) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Coverage Status](https://coveralls.io/repos/github/id-ui/react-file-input/badge.svg?branch=main)](https://coveralls.io/github/id-ui/react-file-input?branch=main)
+[![NPM](https://img.shields.io/npm/v/@idui/react-file-input.svg)](https://www.npmjs.com/package/@idui/react-file-input/) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Coverage Status](https://coveralls.io/repos/github/id-ui/react-file-input/badge.svg?branch=main)](https://coveralls.io/github/id-ui/react-file-input?branch=main)
 
 - [Docs](https://id-ui.github.io/react-file-input/?path=/docs/file-input--playground)
 - [Playground](https://id-ui.github.io/react-file-input/?path=/story/file-input--playground)
@@ -44,24 +44,35 @@ function Example() {
 
 ```jsx
 import React from 'react'
-import FileInput, { UploadArea } from '@idui/react-file-input'
+import FileInput, {UploadArea} from '@idui/react-file-input'
+
+// if multiple then here would be files array
+const upload = (file) => {
+    // should return Promise
+    return fetch('http://example.com', {
+        method: 'POST',
+        body: file
+    }).then(response => response.json().data.src)
+};
 
 function Example() {
-  const [src, setSrc] = useState();
-  
-    // if multiple then here would be files array
-    const upload = (file) => {
-        // should return Promise
-       return  fetch('http://example.com', {
-            method: 'POST',
-            body: file
-        }).then(response => response.json().data.src)
+    const [src, setSrc] = useState();
+    const [isUploading, setUploading] = useState();
+    
+    const handleChange = (newSrc) => {
+        setUploading(false);
+        setSrc(newSrc)
     };
-  
-  return  <UploadArea>
-      <FileInput onChange={setValue} accept="image/*" onUpload={upload} />
-      {src ? <img alt="" src={src} /> : <span>Drop file here or click to upload</span>}
-  </UploadArea>
+
+    return <UploadArea>
+        <FileInput
+            accept="image/*"
+            onStartUploading={() => setUploading(true)}
+            onUpload={upload}
+            onChange={handleChange}
+        />
+        {src ? <img alt="" src={src}/> : <span>Drop file here or click to upload</span>}
+    </UploadArea>
 }
 ```
 

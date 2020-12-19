@@ -24,16 +24,32 @@ export default {
       control: 'string',
       description: 'input name',
     },
+    onStartUploading: {
+      disable: true,
+      action: 'onStartUploading',
+      description: 'Function should return promise tht resoles file',
+    },
     onUpload: {
       disable: true,
       action: 'onUpload',
-      description: 'Function should return promise tht resoles file',
+      description:
+        'Function should return promise that resoles onChange result (For example file src)',
     },
     onChange: {
       disable: true,
       action: 'onChange',
       description:
         'Function called with onUpload result or, if onUpload not provided, FileReader result',
+    },
+    onError: {
+      disable: true,
+      action: 'onError',
+      description: 'Function called if an error occurred',
+    },
+    children: {
+      disable: true,
+      description:
+        'if children is function then it called with { fileInput, dragContainerProps }, you should render fileInput inside drag container and provide drag container with dragContainerProps. There is "isDragging" prop inside dragContainerProps, so you can use it for styling.',
     },
   },
   decorators: [withPropsTable],

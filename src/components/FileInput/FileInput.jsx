@@ -3,12 +3,21 @@ import PropTypes from 'prop-types';
 import { Input } from './styled';
 import { useDrag } from './hooks';
 
-function FileInput({ onChange, onError, multiple, onUpload, ...props }) {
+function FileInput({
+  onStartUploading,
+  onChange,
+  onError,
+  multiple,
+  onUpload,
+  ...props
+}) {
   let inputRef = useRef();
 
   const handleChange = useCallback(
     async (e) => {
       const { files } = e.target;
+
+      onStartUploading();
 
       try {
         if (onUpload) {
@@ -24,13 +33,13 @@ function FileInput({ onChange, onError, multiple, onUpload, ...props }) {
 
           reader.readAsDataURL(files[0]);
         }
-
-        inputRef.current.value = null;
       } catch (e) {
         onError(e);
       }
+
+      inputRef.current.value = null;
     },
-    [multiple, onChange, onUpload, onError]
+    [multiple, onStartUploading, onChange, onUpload, onError]
   );
 
   return (
@@ -44,6 +53,7 @@ function FileInput({ onChange, onError, multiple, onUpload, ...props }) {
 }
 
 FileInput.prpTypes = {
+  onStartUploading: PropTypes.func,
   onChange: PropTypes.func,
   onError: PropTypes.func,
   onUpload: PropTypes.func,
@@ -54,6 +64,7 @@ FileInput.prpTypes = {
 };
 
 FileInput.defaultProps = {
+  onStartUploading: () => {},
   onChange: () => {},
   onError: () => {},
   multiple: false,

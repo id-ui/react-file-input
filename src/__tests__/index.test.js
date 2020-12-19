@@ -55,6 +55,7 @@ describe('FileInput', () => {
 
   it('onUpload', async () => {
     const handleChange = jest.fn();
+    const handleStartUploading = jest.fn();
     const handleUpload = jest
       .fn()
       .mockImplementation(() => Promise.resolve('uploaded_file.jpeg'));
@@ -63,17 +64,19 @@ describe('FileInput', () => {
         data-testid="input"
         onChange={handleChange}
         onUpload={handleUpload}
+        onStartUploading={handleStartUploading}
       />
     );
     user.upload(
       getByTestId('input'),
       new File(['(⌐□_□)'], 'file.jpeg', { type: 'image/jpeg' })
     );
-    await waitFor(() => expect(handleUpload).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(handleChange).toHaveBeenCalledTimes(1));
-    await waitFor(() =>
-      expect(handleChange).toHaveBeenCalledWith('uploaded_file.jpeg')
-    );
+    await waitFor(() => {
+      expect(handleStartUploading).toHaveBeenCalledTimes(1);
+      expect(handleUpload).toHaveBeenCalledTimes(1);
+      expect(handleChange).toHaveBeenCalledTimes(1);
+      expect(handleChange).toHaveBeenCalledWith('uploaded_file.jpeg');
+    });
   });
 
   it('onUpload multiple files', async () => {
@@ -95,14 +98,14 @@ describe('FileInput', () => {
       new File(['(⌐□_□)'], 'file1.jpeg', { type: 'image/jpeg' }),
       new File(['(⌐□_□)'], 'file2.jpeg', { type: 'image/jpeg' }),
     ]);
-    await waitFor(() => expect(handleUpload).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(handleChange).toHaveBeenCalledTimes(1));
-    await waitFor(() =>
+    await waitFor(() => {
+      expect(handleUpload).toHaveBeenCalledTimes(1);
+      expect(handleChange).toHaveBeenCalledTimes(1);
       expect(handleChange).toHaveBeenCalledWith([
         'uploaded_file1.jpeg',
         'uploaded_file2.jpeg',
-      ])
-    );
+      ]);
+    });
   });
 
   it('onUpload: does not call onChange if no result', async () => {
@@ -119,8 +122,10 @@ describe('FileInput', () => {
       getByTestId('input'),
       new File(['(⌐□_□)'], 'file.jpeg', { type: 'image/jpeg' })
     );
-    await waitFor(() => expect(handleUpload).toHaveBeenCalledTimes(1));
-    await waitFor(() => expect(handleChange).toHaveBeenCalledTimes(0));
+    await waitFor(() => {
+      expect(handleUpload).toHaveBeenCalledTimes(1);
+      expect(handleChange).toHaveBeenCalledTimes(0);
+    });
   });
 
   it('should fire onError if error occurred', async () => {
