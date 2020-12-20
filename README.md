@@ -1,6 +1,10 @@
 # FileInput React Component
 
-[![NPM](https://img.shields.io/npm/v/@idui/react-file-input.svg)](https://www.npmjs.com/package/@idui/react-file-input/) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Coverage Status](https://coveralls.io/repos/github/id-ui/react-file-input/badge.svg?branch=main)](https://coveralls.io/github/id-ui/react-file-input?branch=main)
+[![NPM](https://img.shields.io/npm/v/@idui/react-file-input.svg)](https://www.npmjs.com/package/@idui/react-file-input/)
+[![Size](https://img.shields.io/bundlephobia/min/@idui/react-file-input)](https://www.npmjs.com/package/@idui/react-file-input)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Coverage Status](https://coveralls.io/repos/github/id-ui/react-file-input/badge.svg?branch=main)](https://coveralls.io/github/id-ui/react-file-input?branch=main)
+[![LICENSE](https://img.shields.io/github/license/id-ui/react-file-input)](https://github.com/id-ui/react-file-input/blob/main/LICENSE)
 
 - [Docs](https://id-ui.github.io/react-file-input/?path=/docs/fileinput--playground)
 - [Playground](https://id-ui.github.io/react-file-input/?path=/story/fileinput--playground)
