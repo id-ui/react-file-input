@@ -2,8 +2,8 @@
 
 [![NPM](https://img.shields.io/npm/v/@idui/react-file-input.svg)](https://www.npmjs.com/package/@idui/react-file-input/) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Coverage Status](https://coveralls.io/repos/github/id-ui/react-file-input/badge.svg?branch=main)](https://coveralls.io/github/id-ui/react-file-input?branch=main)
 
-- [Docs](https://id-ui.github.io/react-file-input/?path=/docs/file-input--playground)
-- [Playground](https://id-ui.github.io/react-file-input/?path=/story/file-input--playground)
+- [Docs](https://id-ui.github.io/react-file-input/?path=/docs/fileinput--playground)
+- [Playground](https://id-ui.github.io/react-file-input/?path=/story/fileinput--playground)
 
 ## Install
 
@@ -16,7 +16,7 @@ yarn add @idui/react-file-input
 ```
 
 
-### See props in [Docs](https://id-ui.github.io/react-file-input/?path=/docs/file-input--playground)
+### See props in [Docs](https://id-ui.github.io/react-file-input/?path=/docs/fileinput--playground)
 
 
 ### Basic Example without uploading.
@@ -137,7 +137,7 @@ export function DragAndDropExample({ onUpload, ...props }) {
 }
 ```
 
-### See more details in [storybook](https://id-ui.github.io/react-file-input/?path=/docs/file-input--playground)
+### See more details in [storybook](https://id-ui.github.io/react-file-input/?path=/docs/fileinput--playground)
 
 ## License
 
