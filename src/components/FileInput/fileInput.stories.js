@@ -11,24 +11,24 @@ export default {
     onStartUploading: {
       disable: true,
       action: 'onStartUploading',
-      description: 'Function should return promise tht resoles file',
+      description: 'Handler called before uploading started',
     },
     onUpload: {
       disable: true,
       action: 'onUpload',
       description:
-        'Function should return promise that resoles onChange result (For example file src)',
+        'Handler called with (multiple ? first file : files, event). It should return promise that resoles onChange result (For example file src)',
     },
     onChange: {
       disable: true,
       action: 'onChange',
       description:
-        'Function called with onUpload result or, if onUpload not provided, FileReader result',
+        'Handler called with (result, event), where result is onUpload result or, if onUpload not provided, FileReader result, event is onChange event',
     },
     onError: {
       disable: true,
       action: 'onError',
-      description: 'Function called if an error occurred',
+      description: 'Handler called if an error occurred',
     },
     children: {
       disable: true,

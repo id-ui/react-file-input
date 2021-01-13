@@ -24,25 +24,25 @@ function FileInput({
       onStartUploading();
 
       try {
-        if (onUpload) {
-          if (
-            maxFileSize &&
-            (multiple ? files : [files[0]]).some(
-              (file) => toMB(file.size) > maxFileSize
-            )
-          ) {
-            throw new TooLargeFileError();
-          }
+        if (
+          maxFileSize &&
+          (multiple ? files : [files[0]]).some(
+            (file) => toMB(file.size) > maxFileSize
+          )
+        ) {
+          throw new TooLargeFileError();
+        }
 
-          const result = await onUpload(multiple ? files : files[0]);
+        if (onUpload) {
+          const result = await onUpload(multiple ? files : files[0], e);
           if (result) {
-            onChange(result);
+            onChange(result, e);
           }
         } else {
           const reader = new FileReader();
 
           reader.onload = (progressEvent) =>
-            onChange(progressEvent.target.result);
+            onChange(progressEvent.target.result, e);
 
           reader.readAsDataURL(files[0]);
         }
