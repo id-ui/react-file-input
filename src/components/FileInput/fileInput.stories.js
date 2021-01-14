@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { withPropsTable } from 'storybook-addon-react-docgen';
 import FileInput from './FileInput';
@@ -74,12 +74,20 @@ export function playground(props) {
   );
 }
 
-export function ImageField({ onUpload, ...props }) {
+export function ImageField({ onUpload, onChange, ...props }) {
   const [value, setValue] = useState();
+
+  const handleChange = useCallback(
+    (src, e) => {
+      setValue(src);
+      onChange(src, e);
+    },
+    [onChange]
+  );
 
   return (
     <UploadArea>
-      <FileInput {...props} onChange={setValue} accept="image/*" />
+      <FileInput {...props} onChange={handleChange} accept="image/*" />
       {value ? (
         <img alt="" src={value} />
       ) : (

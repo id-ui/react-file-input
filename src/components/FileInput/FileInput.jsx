@@ -19,6 +19,7 @@ function FileInput({
 
   const handleChange = useCallback(
     async (e) => {
+      e.persist();
       const { files } = e.target;
 
       onStartUploading();
@@ -36,21 +37,22 @@ function FileInput({
         if (onUpload) {
           const result = await onUpload(multiple ? files : files[0], e);
           if (result) {
-            onChange(result, e);
+            onChange(result, files, e);
+            inputRef.current.value = null;
           }
         } else {
           const reader = new FileReader();
 
-          reader.onload = (progressEvent) =>
+          reader.onload = (progressEvent) => {
             onChange(progressEvent.target.result, e);
+            inputRef.current.value = null;
+          };
 
           reader.readAsDataURL(files[0]);
         }
       } catch (e) {
         onError(e);
       }
-
-      inputRef.current.value = null;
     },
     [multiple, onStartUploading, onChange, onUpload, onError, maxFileSize]
   );
