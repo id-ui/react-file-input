@@ -74,7 +74,6 @@ FileInput.prpTypes = {
   onUpload: PropTypes.func,
   multiple: PropTypes.bool,
   name: PropTypes.string,
-  id: PropTypes.string,
   accepts: PropTypes.string,
   maxFileSize: PropTypes.number,
 };

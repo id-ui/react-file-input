@@ -1,6 +1,5 @@
 import React, { Fragment, useCallback, useState } from 'react';
 import styled from 'styled-components';
-import { withPropsTable } from 'storybook-addon-react-docgen';
 import FileInput from './FileInput';
 import { UploadArea } from './styled';
 
@@ -17,7 +16,7 @@ export default {
       disable: true,
       action: 'onUpload',
       description:
-        'Handler called with (multiple ? first file : files, event). It should return promise that resoles onChange result (For example file src)',
+        'Handler called with (multiple ? first file : files, event). It should return promise that resoles future onChange result (For example file src)',
     },
     onChange: {
       disable: true,
@@ -55,12 +54,6 @@ export default {
     name: {
       control: 'string',
       description: 'input name',
-    },
-  },
-  decorators: [withPropsTable],
-  parameters: {
-    props: {
-      propTablesInclude: [FileInput],
     },
   },
 };
