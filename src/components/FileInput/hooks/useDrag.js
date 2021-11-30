@@ -1,17 +1,17 @@
-import { useCallback, useState } from 'react';
+import {  useState } from 'react';
 
 export default () => {
   const [isDragging, setDragging] = useState();
 
-  const handleDragEnter = useCallback(() => {
+  const handleDragEnter = () => {
     setDragging(true);
-  }, []);
+  }
 
-  const handleDragEnd = useCallback(() => {
+  const handleDragEnd = () => {
     setDragging(false);
-  }, []);
+  }
 
-  return {
+    return {
     onDragEnter: handleDragEnter,
     onDragLeave: handleDragEnd,
     onDragExit: handleDragEnd,

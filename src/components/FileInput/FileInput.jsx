@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, {  useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from './styled';
 import { useDrag } from './hooks';
@@ -15,47 +15,44 @@ function FileInput({
   maxFileSize,
   ...props
 }) {
-  let inputRef = useRef();
+  const inputRef = useRef();
 
-  const handleChange = useCallback(
-    async (e) => {
-      e.persist();
-      const { files } = e.target;
+  const handleChange = async (e) => {
+    e.persist();
+    const { files } = e.target;
 
-      onStartUploading();
+    onStartUploading();
 
-      try {
-        if (
+    try {
+      if (
           maxFileSize &&
           (multiple ? files : [files[0]]).some(
-            (file) => toMB(file.size) > maxFileSize
+              (file) => toMB(file.size) > maxFileSize
           )
-        ) {
-          throw new TooLargeFileError();
-        }
-
-        if (onUpload) {
-          const result = await onUpload(multiple ? files : files[0], e);
-          if (result) {
-            onChange(result, files, e);
-            inputRef.current.value = null;
-          }
-        } else {
-          const reader = new FileReader();
-
-          reader.onload = (progressEvent) => {
-            onChange(progressEvent.target.result, e);
-            inputRef.current.value = null;
-          };
-
-          reader.readAsDataURL(files[0]);
-        }
-      } catch (e) {
-        onError(e);
+      ) {
+        throw new TooLargeFileError();
       }
-    },
-    [multiple, onStartUploading, onChange, onUpload, onError, maxFileSize]
-  );
+
+      if (onUpload) {
+        const result = await onUpload(multiple ? files : files[0], e);
+        if (result) {
+          onChange(result, files, e);
+          inputRef.current.value = null;
+        }
+      } else {
+        const reader = new FileReader();
+
+        reader.onload = (progressEvent) => {
+          onChange(progressEvent.target.result, e);
+          inputRef.current.value = null;
+        };
+
+        reader.readAsDataURL(files[0]);
+      }
+    } catch (e) {
+      onError(e);
+    }
+  }
 
   return (
     <Input
